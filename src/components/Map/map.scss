@@ -1,0 +1,15 @@
+@import "../../settings/settings.scss";
+
+.MapSection {
+  width: 100%;
+  height: calc(100% - $header_header);
+
+  .leaflet-container {
+    height: 100%;
+    z-index: 1;
+  }
+
+  .MapSection_MapContainer {
+    
+  }
+}

@@ -1,0 +1,63 @@
+@import "../../settings/settings.scss";
+
+.ModalStationTypeSection {
+    pointer-events: all;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50%;
+  height: 50%;
+
+  border-radius: $modal_round;
+
+  background-color: white;
+
+  .ModalStationTypeSection_Main {
+    // background-color: pink;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+
+    .ModalStationTypeSection_Main_Text {
+      font-size: 30px;
+      font-weight: 700;
+        text-align: center;
+    }
+
+    .ModalStationTypeSection_Main_Buttons {
+        // background-color: pink;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+        gap: 100px;
+
+      width: 100%;
+      flex: 1;
+
+      .ModalStationTypeSection_Main_Buttons_El{
+        cursor: pointer;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        width: 150px;
+        height: 150px;
+
+        border-radius: 20px;
+
+        background-color: rgb(237, 237, 237);
+      }
+    }
+  }
+}

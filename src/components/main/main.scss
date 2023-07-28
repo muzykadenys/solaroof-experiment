@@ -1,0 +1,11 @@
+@import "../../settings/settings.scss";
+
+.MainSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+}

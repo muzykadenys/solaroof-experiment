@@ -1,0 +1,24 @@
+.RoofChooseSection {
+  background-color: rgba(255, 192, 203, 0.497);
+
+  pointer-events: all;
+
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  .RoofChooseSection_Left {
+    display: flex;
+
+    width: 50%;
+    height: 100%;
+
+    background-color: white;
+  }
+
+  .RoofChooseSection_Right {
+    width: 100%;
+    height: 100%;
+  }
+}

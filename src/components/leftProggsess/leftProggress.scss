@@ -1,0 +1,21 @@
+@import "../../settings/settings.scss";
+
+.LeftProggressSection {
+    // background-color: green;
+    pointer-events: all;
+    display: flex;
+
+    width: $leftProggress_width;
+    // height: 100px;
+
+  .LeftProggressSection_Progress {
+   
+
+    background-color: white;
+  }
+
+  .LeftProggressSection_Continue{
+    height: 30px;
+    width: 100%;
+  }
+}

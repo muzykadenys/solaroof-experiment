@@ -1,0 +1,20 @@
+@import "../../settings/settings.scss";
+
+.HeaderSection{
+    // background-color: pink;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: $header_header;
+    width: 100%;
+
+    .HeaderSection_InputWrap{
+        width: 30%;
+
+        .HeaderSection_InputWrap_Input{
+            width: 100%;
+        }
+    }
+}
