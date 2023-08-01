@@ -1,5 +1,70 @@
 $header_header: 50px;
 
 $leftProggress_width: 40px;
+$leftProggresChildren_width: calc($leftProggress_width - 10px);
+$smallButtonPadding: 5px;
+$smallButton_round: 3px;
 
 $modal_round: 10px;
+
+$message_minwidth: 150px;
+$message_height: 30px;
+
+$sceneWrapButton_width: 30px;
+$sceneWrapMark_width: 15px;
+
+$pannelChoosePadding: 10px;
+$panelChooseDotWidth: 15px;
+
+@mixin custom_input {
+  padding: 5px 10px 5px 10px;
+  border: none;
+  background-color: rgb(223, 223, 223);
+  border-radius: 3px;
+  border: 1px solid rgb(223, 223, 223);
+
+  font-weight: 700;
+
+  &:focus {
+    outline: none;
+    border: 1px solid rgb(201, 201, 201);
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@mixin smallButtons {
+  display: flex;
+  gap: $smallButtonPadding;
+  padding: $smallButtonPadding;
+
+  min-width: $leftProggress_width;
+  min-height: $leftProggress_width;
+  // height: fit-content;
+  // width: fit-content;
+
+  border-radius: $smallButton_round;
+  background-color: white;
+
+  & > div {
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: $leftProggresChildren_width;
+    height: $leftProggresChildren_width;
+
+    border-radius: $smallButton_round;
+    background-color: rgb(235, 235, 235);
+  }
+}
