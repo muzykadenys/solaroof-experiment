@@ -6,17 +6,20 @@ import { store } from "../../redux/store";
 import LeftProggress from "../leftProggsess/LeftProggress";
 import RoofChoose from "../roofChoose/RoofChoose";
 import UiAboveMap from "../uiAboveMap/UiAboveMap";
+import MessageHandler from "../messageHandler/MessageHandler";
 
 function Main() {
   return (
     <Provider store={store}>
+      <MessageHandler />
+
       <div className="MainSection">
-        {/* <Header />
+        <Header />
         <Map />
 
-       <UiAboveMap/> */}
-       
-        <RoofChoose />
+        <UiAboveMap />
+
+        {/* <RoofChoose /> */}
       </div>
     </Provider>
   );

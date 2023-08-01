@@ -1,0 +1,31 @@
+@import "../../settings/settings.scss";
+
+.SceneWrap_Button {
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: calc($sceneWrapButton_width / -2);
+  margin-left: calc($sceneWrapButton_width / -2);
+
+  background-color: white;
+
+  border-radius: 333px;
+  width: $sceneWrapButton_width;
+  height: $sceneWrapButton_width;
+}
+.SceneWrap_ButtonDelelete {
+  background-color: rgb(255, 77, 77);
+  transform: rotate(45deg);
+}
+.SceneWrap_ColorMarker {
+  margin-top: calc($sceneWrapMark_width / -2);
+  margin-left: calc($sceneWrapMark_width / -2);
+
+  width: $sceneWrapMark_width;
+  height: $sceneWrapMark_width;
+
+  border-radius: 333px;
+}

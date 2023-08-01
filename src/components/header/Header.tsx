@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import "./header.scss";
 import { API_KEY } from "../../settings/CONSTS";
 import { useDispatch } from "react-redux";
-import { LOCATIONINFO_LATLON_SET } from "../../redux/redux_consts";
+import {
+  LOCATIONINFO_LATLON_SET,
+  MESSAGEHANDLER_ADD,
+} from "../../redux/redux_consts";
 
 function Header() {
   const dispatch = useDispatch();

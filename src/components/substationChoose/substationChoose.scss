@@ -1,0 +1,71 @@
+@import "../../settings/settings.scss";
+
+$leftPanelElWidth: 120px;
+
+.SubstationChooseSection {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgb(244, 244, 244);
+
+  .SubstationChooseSection_Main {
+    display: flex;
+    overflow: scroll;
+
+    width: 100%;
+    flex-wrap: wrap;
+    height: fit-content;
+
+    gap: 10px;
+    padding: $pannelChoosePadding;
+
+    .SubstationChooseSection_Main_El {
+      cursor: pointer;
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: $leftPanelElWidth;
+      height: $leftPanelElWidth;
+
+      background-color: white;
+      border: none;
+      border-radius: $modal_round;
+
+      //   .SubstationChooseSection_Main_El_Dot {
+      //     position: absolute;
+      //     top: 5px;
+      //     right: 5px;
+
+      //     width: $panelChooseDotWidth;
+      //     height: $panelChooseDotWidth;
+
+      //     border-radius: 333px;
+      //   }
+
+      .SubstationChooseSection_Main_El_Main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+
+        font-weight: 800;
+      }
+    }
+
+    .active {
+      border: 2px solid black;
+    }
+
+    .SubstationChooseSection_Main_Add {
+      font-size: 28px;
+    }
+  }
+}

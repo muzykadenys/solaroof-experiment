@@ -1,0 +1,115 @@
+@import "../../settings/settings.scss";
+
+$leftPanelElWidth: 120px;
+
+.PanelChooseSection {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  .PanelChooseSection_PanelList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgb(244, 244, 244);
+    overflow: scroll;
+
+    width: fit-content;
+    // height: 100%;
+
+    gap: 10px;
+    padding: $pannelChoosePadding;
+
+    .PanelChooseSection_PanelList_El {
+      cursor: pointer;
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: $leftPanelElWidth;
+      min-height: $leftPanelElWidth;
+
+      background-color: white;
+      border: none;
+      border-radius: $modal_round;
+
+      .PanelChooseSection_PanelList_El_Dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        width: $panelChooseDotWidth;
+        height: $panelChooseDotWidth;
+
+        border-radius: 333px;
+      }
+
+      .PanelChooseSection_PanelList_El_Main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+
+        font-weight: 800;
+      }
+    }
+
+    .active {
+      border: 2px solid black;
+    }
+
+    .PanelChooseSection_PanelList_Add{
+      font-size: 28px;
+    }
+  }
+
+  .PanelChooseSection_Configuration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1;
+
+    padding: $pannelChoosePadding;
+
+    .PanelChooseSection_Configuration_Main {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+      height: 100%;
+
+      gap: 20px;
+
+      .PanelChooseSection_Configuration_Main_InputWrap {
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+        width: 100%;
+
+        .PanelChooseSection_Configuration_Main_InputWrap_Text {
+          .PanelChooseSection_Configuration_Main_InputWrap_Text_Big {
+            font-weight: 600;
+            font-size: 18px;
+          }
+        }
+
+        .PanelChooseSection_Configuration_Main_InputWrap_Wrap {
+          width: 50%;
+          .PanelChooseSection_Configuration_Main_InputWrap_Wrap_Input {
+            width: 100%;
+            height: 30px;
+
+            @include custom-input;
+          }
+        }
+      }
+    }
+  }
+}

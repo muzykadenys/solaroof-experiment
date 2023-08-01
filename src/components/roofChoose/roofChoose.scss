@@ -1,5 +1,7 @@
+@import "../../settings/settings.scss";
+
 .RoofChooseSection {
-  background-color: rgba(255, 192, 203, 0.497);
+  background-color: rgba(224, 224, 224, 0.497);
 
   pointer-events: all;
 
@@ -11,14 +13,28 @@
   .RoofChooseSection_Left {
     display: flex;
 
-    width: 50%;
+    width: 40%;
     height: 100%;
 
     background-color: white;
   }
 
   .RoofChooseSection_Right {
-    width: 100%;
+    width: 60%;
     height: 100%;
+
+    .RoofChooseSection_Right_SwitchMode {
+      z-index: 1;
+
+      position: absolute;
+      @include smallButtons;
+
+      flex-direction: column;
+      align-items: center;
+
+      width: $leftProggress_width;
+
+      margin: $pannelChoosePadding;
+    }
   }
 }

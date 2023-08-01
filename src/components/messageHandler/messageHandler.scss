@@ -1,0 +1,31 @@
+@import "../../settings/settings.scss";
+
+.MessageHandlerSection {
+  z-index: 300;
+  pointer-events: none;
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px;
+
+  width: 100vw;
+  height: 100vh;
+
+  .MessageHandlerSection_El {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: $message_minwidth;
+    width: fit-content;
+    height: $message_height;
+
+    padding: 10px;
+
+    border-radius: $modal_round;
+    background-color: rgb(255, 205, 205);
+  }
+}
