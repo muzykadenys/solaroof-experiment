@@ -9,7 +9,7 @@ import { gridOutline, grid, cubeOutline, cube } from "ionicons/icons";
 import SubstationChoose from "../substationChoose/SubstationChoose";
 import { StoreState } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { PanelType } from "../../redux/reduxTypes";
+import { PanelType, SubstationType } from "../../redux/reduxTypes";
 
 function RoofChoose() {
   const state = useSelector((state: StoreState) => state);
@@ -52,15 +52,15 @@ function RoofChoose() {
 
           <PresentationControls
             global
-            azimuth={[-Math.PI / 3, Math.PI / 3]}
+            azimuth={[-Math.PI / 2.2, Math.PI / 2.2]}
             polar={[0, 0]}
             // snap={true}
             // config={{ mass: 1, tension: 1000, friction: 1 }}
           >
             {stationInfoData.listOfPanelList.map(
-              (el: PanelType[], index: number) => {
+              (el: SubstationType, index: number) => {
                 if (stationInfoData.substationIndex === index) {
-                  return <SceneWrap propPanelList={el} key={`SISW${index}`} />;
+                  return <SceneWrap propPanelList={el.panelList} angle={el.angle} viewButton={switchMode} key={`SISW${index}`} />;
                 }
               }
             )}

@@ -2,6 +2,11 @@
 
 $leftPanelElWidth: 120px;
 
+.InputErrorSection{
+  color: red;
+  font-size: 12px;
+}
+
 .PanelChooseSection {
   display: flex;
   justify-content: space-between;
@@ -64,7 +69,7 @@ $leftPanelElWidth: 120px;
       border: 2px solid black;
     }
 
-    .PanelChooseSection_PanelList_Add{
+    .PanelChooseSection_PanelList_Add {
       font-size: 28px;
     }
   }
@@ -109,6 +114,12 @@ $leftPanelElWidth: 120px;
             @include custom-input;
           }
         }
+      }
+
+      .PanelChooseSection_Configuration_Main_Separator {
+        width: 100%;
+        height: 2px;
+        background-color: rgb(244, 244, 244);
       }
     }
   }

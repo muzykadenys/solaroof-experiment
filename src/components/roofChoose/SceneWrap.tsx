@@ -13,7 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../redux/store";
 import { STATIONINFO_PANELLIST_SET } from "../../redux/redux_consts";
 
-function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
+function SceneWrap({
+  propPanelList,
+  angle,
+  viewButton,
+}: {
+  propPanelList: PanelType[];
+  angle: number;
+  viewButton: boolean;
+}) {
   const dispatch = useDispatch();
   const dispatchStationInfoPanelListSet = (data: PanelType[]) => {
     dispatch({ type: STATIONINFO_PANELLIST_SET, payload: data });
@@ -26,7 +34,7 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
   const stationInfoData = state.stationInfo.data;
   const { panelGap, panelPosZ, buttonPosZ, panelSize } = stationInfo;
   /// =====================================================================
-  console.log(propPanelList);
+
   const { camera } = useThree();
   const gltf = useLoader(GLTFLoader, "./models/solar_panel.glb");
   const [panelList, setPanelList] = useState<PanelType[]>([]);
@@ -290,20 +298,24 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
           <ModelGlft />
         </mesh>
 
-        <Html
-          position={[
-            position[0] + panelSize[0] / 2 - 0.2,
-            position[1] + panelSize[1] / 2 - 0.2,
-            buttonPosZ,
-          ]}
-        >
-          <div
-            className="SceneWrap_ColorMarker"
-            style={{ backgroundColor: color }}
-          ></div>
-        </Html>
+        {viewButton ? (
+          <Html
+            position={[
+              position[0] + panelSize[0] / 2 - 0.2,
+              position[1] + panelSize[1] / 2 - 0.2,
+              buttonPosZ,
+            ]}
+          >
+            <div
+              className="SceneWrap_ColorMarker"
+              style={{ backgroundColor: color }}
+            ></div>
+          </Html>
+        ) : null}
 
-        {isShowDelete === id && (position[0] !== 0 || position[1] !== 0) ? (
+        {viewButton &&
+        isShowDelete === id &&
+        (position[0] !== 0 || position[1] !== 0) ? (
           <Html position={[position[0], position[1], buttonPosZ]}>
             <div
               className="SceneWrap_Button SceneWrap_ButtonDelelete"
@@ -314,7 +326,7 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
             </div>
           </Html>
         ) : null}
-        {top === null ? (
+        {viewButton && top === null ? (
           <Html
             occlude={[underPanelRef]}
             position={[position[0], position[1] + panelSize[1], buttonPosZ]}
@@ -329,7 +341,7 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
             </div>
           </Html>
         ) : null}
-        {right === null ? (
+        {viewButton && right === null ? (
           <Html
             occlude={[underPanelRef]}
             position={[position[0] + panelSize[0], position[1], buttonPosZ]}
@@ -363,7 +375,9 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
 
     groupWrapRef.current.position.x = underPanelRef.current.position.x * -1;
     groupWrapRef.current.position.y = underPanelRef.current.position.y * -1;
-
+    gsap.to(groupWrapRef.current.rotation, {
+      x: -(angle * (Math.PI / 180)),
+    });
     // set camera position
     gsap.to(camera.position, {
       x: cameraPos[0],
@@ -400,6 +414,8 @@ function SceneWrap({ propPanelList }: { propPanelList: PanelType[] }) {
   }, [stationInfoData.substationIndex]);
 
   useEffect(() => {
+    groupWrapRef.current.rotation.x = -(angle * (Math.PI / 180));
+
     setPanelsAmount(getAmountOfAllChildren());
     dispatchStationInfoPanelListSet(panelList);
   }, [panelList]);

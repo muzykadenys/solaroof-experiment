@@ -39,10 +39,14 @@ export type PanelType = {
   panelTypeIndex: number
   color: string
 };
+export type SubstationType = {
+  panelList: PanelType[],
+  angle: number
+}
 export type StationInfoType = {
   isHaveStation: boolean;
   isRoof: boolean;
-  listOfPanelList: PanelType[][]
+  listOfPanelList: SubstationType[]
   substationIndex: number
 };
 export type StateStationInfoType = {
