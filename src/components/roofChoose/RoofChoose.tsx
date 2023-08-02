@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import SceneWrap from "./SceneWrap";
 import PanelChoose from "../panelChoose/PanelChoose";
 import { IonIcon } from "@ionic/react";
-import { gridOutline, grid, cubeOutline, cube } from "ionicons/icons";
+import { gridOutline, grid, duplicateOutline, duplicate } from "ionicons/icons";
 import SubstationChoose from "../substationChoose/SubstationChoose";
 import { StoreState } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import { PanelType, SubstationType } from "../../redux/reduxTypes";
 function RoofChoose() {
   const state = useSelector((state: StoreState) => state);
   const stationInfoData = state.stationInfo.data;
+  const proggress = state.proggress.data;
   const [switchMode, setSwitchMode] = useState<boolean>(true);
 
   return (
@@ -25,16 +26,20 @@ function RoofChoose() {
       <div className="RoofChooseSection_Right">
         <div className="RoofChooseSection_Right_SwitchMode">
           <div
-            className="RoofChooseSection_Right_SwitchMode_El"
+            className={`RoofChooseSection_Right_SwitchMode_El ${
+              switchMode ? "active" : ""
+            }`}
             onClick={() => setSwitchMode(true)}
           >
             <IonIcon icon={switchMode ? grid : gridOutline} />
           </div>
           <div
-            className="RoofChooseSection_Right_SwitchMode_El"
+            className={`RoofChooseSection_Right_SwitchMode_El ${
+              !switchMode ? "active" : ""
+            }`}
             onClick={() => setSwitchMode(false)}
           >
-            <IonIcon icon={switchMode ? cubeOutline : cube} />
+            <IonIcon icon={switchMode ? duplicateOutline : duplicate} />
           </div>
         </div>
 
@@ -60,7 +65,14 @@ function RoofChoose() {
             {stationInfoData.listOfPanelList.map(
               (el: SubstationType, index: number) => {
                 if (stationInfoData.substationIndex === index) {
-                  return <SceneWrap propPanelList={el.panelList} angle={el.angle} viewButton={switchMode} key={`SISW${index}`} />;
+                  return (
+                    <SceneWrap
+                      propPanelList={el.panelList}
+                      angle={el.angle}
+                      viewButton={switchMode}
+                      key={`SISW${index}`}
+                    />
+                  );
                 }
               }
             )}

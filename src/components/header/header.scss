@@ -1,20 +1,59 @@
 @import "../../settings/settings.scss";
 
-.HeaderSection{
-    // background-color: pink;
+.HeaderSection {
+  // background-color: pink;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    height: $header_header;
-    width: 100%;
+  height: $header_header;
+  width: 100%;
 
-    .HeaderSection_InputWrap{
-        width: 30%;
+  .HeaderSection_InputWrap {
+    width: 30%;
+    position: relative;
 
-        .HeaderSection_InputWrap_Input{
-            width: 100%;
+    .HeaderSection_InputWrap_Wrap {
+      display: flex;
+      align-items: center;
+
+      .HeaderSection_InputWrap_Wrap_Icon {
+        pointer-events: none;
+        position: absolute;
+        margin-left: 10px;
+      }
+      .HeaderSection_InputWrap_Wrap_Input {
+        @include custom_input;
+        padding: 5px 10px 5px 35px;
+        width: 100%;
+        height: calc($header_header - 15px);
+        background-color: white;
+
+        &:focus {
+          background-color: rgb(223, 223, 223);
         }
+      }
     }
+
+    .HeaderSection_InputWrap_Variants {
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+
+      .HeaderSection_InputWrap_Variants_El {
+        cursor: pointer;
+
+        padding: 2.5px 5px;
+
+        font-size: 14px;
+        font-weight: 700;
+        background-color: white;
+
+        &:hover{
+            background-color:  rgb(223, 223, 223);
+        }
+      }
+    }
+  }
 }

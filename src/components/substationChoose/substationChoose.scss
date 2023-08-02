@@ -37,18 +37,28 @@ $leftPanelElWidth: 120px;
       border: none;
       border-radius: $modal_round;
 
-      //   .SubstationChooseSection_Main_El_Dot {
-      //     position: absolute;
-      //     top: 5px;
-      //     right: 5px;
+      .SubstationChooseSection_Main_El_Close {
+        pointer-events: all;
+        position: absolute;
 
-      //     width: $panelChooseDotWidth;
-      //     height: $panelChooseDotWidth;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-      //     border-radius: 333px;
-      //   }
+        width: $panelChooseDotWidth;
+        height: $panelChooseDotWidth;
+
+        top: 5px;
+        right: 5px;
+        z-index: 2;
+
+        background-color: rgb(255, 95, 95);
+
+        border-radius: 333px;
+      }
 
       .SubstationChooseSection_Main_El_Main {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;

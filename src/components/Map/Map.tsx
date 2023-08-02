@@ -41,6 +41,10 @@ function DisableDragging(props: any) {
     map.dragging.disable();
     map.doubleClickZoom.disable();
     map.keyboard.disable();
+  } else {
+    map.dragging.enable();
+    map.doubleClickZoom.enable();
+    map.keyboard.enable();
   }
 
   return null;
@@ -70,11 +74,11 @@ function Map() {
   function LocationMarker() {
     useMapEvents({
       click(e) {
-       if(!isDragable){
-        const point = e.latlng;
+        if (!isDragable) {
+          const point = e.latlng;
 
-        dispatchLocationInfoMarkerSet(point.lat, point.lng);
-       }
+          dispatchLocationInfoMarkerSet(point.lat, point.lng);
+        }
       },
     });
 
@@ -85,7 +89,9 @@ function Map() {
   }
 
   useEffect(() => {
-    if (proggress.stage === 1) {
+    if (proggress.stage === 0) {
+      setIsDragable(true);
+    } else {
       setIsDragable(false);
     }
   }, [proggress.stage]);
@@ -113,13 +119,15 @@ function Map() {
         ></TileLayer>
 
         <LocationMarker />
-        <Marker
-          position={{
-            lat: locationInfo.marker.lat,
-            lng: locationInfo.marker.lon,
-          }}
-          icon={customIcon}
-        ></Marker>
+        {proggress.stage === 1 ? (
+          <Marker
+            position={{
+              lat: locationInfo.marker.lat,
+              lng: locationInfo.marker.lon,
+            }}
+            icon={customIcon}
+          ></Marker>
+        ) : null}
 
         <SetCenterOnDragg
           dispatchLocationInfoLatLonSet={dispatchLocationInfoLatLonSet}

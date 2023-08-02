@@ -1,4 +1,4 @@
-$header_header: 50px;
+$header_header: 40px;
 
 $leftProggress_width: 40px;
 $leftProggresChildren_width: calc($leftProggress_width - 10px);
@@ -49,7 +49,7 @@ $panelChooseDotWidth: 15px;
 
   min-width: $leftProggress_width;
   min-height: $leftProggress_width;
-  // height: fit-content;
+  height: fit-content;
   // width: fit-content;
 
   border-radius: $smallButton_round;
@@ -65,6 +65,10 @@ $panelChooseDotWidth: 15px;
     height: $leftProggresChildren_width;
 
     border-radius: $smallButton_round;
+    // background-color: rgb(235, 235, 235);
+  }
+
+  & > .active {
     background-color: rgb(235, 235, 235);
   }
 }

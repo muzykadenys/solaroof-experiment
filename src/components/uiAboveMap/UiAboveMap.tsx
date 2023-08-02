@@ -4,6 +4,7 @@ import ModalStationType from "../modalStationType/ModalStationType";
 import RoofChoose from "../roofChoose/RoofChoose";
 import "./uiAboveMap.scss";
 import { StoreState } from "../../redux/store";
+import RightMapControlls from "../rightMapControlls/RightMapControlls";
 
 function UiAboveMap() {
   const state = useSelector((state: StoreState) => state);
@@ -15,11 +16,11 @@ function UiAboveMap() {
         <LeftProggress />
 
         <div className="UiAboveMapSection_Wrap_CenterFields">
-          {proggress.stage === 2 ? <ModalStationType /> : null}
-          {proggress.stage === 3 ? <RoofChoose /> : null}
+          {/* {proggress.stage === 2 ? <ModalStationType /> : null} */}
+          {proggress.stage === 2 ? <RoofChoose /> : null}
         </div>
 
-        <LeftProggress />
+        <RightMapControlls />
       </div>
     </div>
   );

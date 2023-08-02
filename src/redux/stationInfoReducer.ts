@@ -11,6 +11,7 @@ import {
   STATIONINFO_PANELLIST_SET,
   STATIONINFO_SUBSTATIONINDEX_SET,
   STATIONINFO_SUBSTATION_ANGLE_SET,
+  STATIONINFO_SUBSTATION_DELETE_BY_INDEX,
 } from "./redux_consts";
 
 const initialState = {
@@ -64,6 +65,16 @@ const stationInfoReducer = (
             ...state.data.listOfPanelList,
             { panelList: [], angle: 0 },
           ],
+        },
+      };
+    case STATIONINFO_SUBSTATION_DELETE_BY_INDEX:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          listOfPanelList: state.data.listOfPanelList.filter(
+            (el: SubstationType, index: number) => state.data.substationIndex !== index
+          ),
         },
       };
     case STATIONINFO_SUBSTATION_ANGLE_SET:
