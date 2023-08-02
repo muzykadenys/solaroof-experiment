@@ -4,7 +4,7 @@ import { PROGGRESS_STAGE_INCREMENT, PROGGRESS_STAGE_SET } from "./redux_consts";
 
 const initialState = {
   data: {
-    stage: 3
+    stage: 0
   }
 };
 

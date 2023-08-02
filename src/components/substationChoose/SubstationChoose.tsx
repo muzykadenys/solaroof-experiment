@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../redux/store";
-import { PanelType } from "../../redux/reduxTypes";
+import { PanelType, SubstationType } from "../../redux/reduxTypes";
 import "./substationChoose.scss";
 import {
   STATIONINFO_PANELLIST_ADD,
@@ -38,7 +38,7 @@ function SubstationChoose() {
         </div>
 
         {stationInfoData.listOfPanelList.map(
-          (el: PanelType[], index: number) => {
+          (el: SubstationType, index: number) => {
             return (
               <div
                 onClick={() => changeSubstation(index)}
@@ -47,7 +47,7 @@ function SubstationChoose() {
                 }`}
                 key={`SCS${index}`}
               >
-                {el.length === 0 ? 1 : el.length}
+                {el.panelList.length === 0 ? 1 : el.panelList.length}
               </div>
             );
           }

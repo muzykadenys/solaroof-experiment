@@ -1,10 +1,16 @@
-import { ActionType, PanelType, StateStationInfoType } from "./reduxTypes";
+import {
+  ActionType,
+  PanelType,
+  StateStationInfoType,
+  SubstationType,
+} from "./reduxTypes";
 import {
   STATIONINFO_ISHAVESTATION_SET,
   STATIONINFO_ISROOF_SET,
   STATIONINFO_PANELLIST_ADD,
   STATIONINFO_PANELLIST_SET,
   STATIONINFO_SUBSTATIONINDEX_SET,
+  STATIONINFO_SUBSTATION_ANGLE_SET,
 } from "./redux_consts";
 
 const initialState = {
@@ -15,7 +21,7 @@ const initialState = {
   data: {
     isHaveStation: false,
     isRoof: false,
-    listOfPanelList: [[]],
+    listOfPanelList: [{ panelList: [], angle: 0 }],
     substationIndex: 0,
   },
 };
@@ -54,7 +60,25 @@ const stationInfoReducer = (
         ...state,
         data: {
           ...state.data,
-          listOfPanelList: [...state.data.listOfPanelList, []],
+          listOfPanelList: [
+            ...state.data.listOfPanelList,
+            { panelList: [], angle: 0 },
+          ],
+        },
+      };
+    case STATIONINFO_SUBSTATION_ANGLE_SET:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          listOfPanelList: state.data.listOfPanelList.map(
+            (el: SubstationType, index: number) => {
+              if (state.data.substationIndex === index) {
+                return { ...el, angle: action.payload };
+              }
+              return el;
+            }
+          ),
         },
       };
     case STATIONINFO_PANELLIST_SET:
@@ -63,14 +87,13 @@ const stationInfoReducer = (
         data: {
           ...state.data,
           listOfPanelList: state.data.listOfPanelList.map(
-            (el: PanelType[], index: number) => {
+            (el: SubstationType, index: number) => {
               if (state.data.substationIndex === index) {
-                return action.payload;
+                return { ...el, panelList: action.payload };
               }
               return el;
             }
           ),
-          // listOfPanelList: [...state.data.listOfPanelList, action.payload],
         },
       };
     default:

@@ -7,8 +7,15 @@ import {
   PANELCHOOSE_ADD_NEW,
   PANELCHOOSE_CHANGE_PANEL_FIELD_BY_INDEX,
   PANELCHOOSE_CURRENT_SET,
+  STATIONINFO_SUBSTATION_ANGLE_SET,
 } from "../../redux/redux_consts";
 
+type inputBlock = {
+  value: any;
+  setValue: any;
+  onLeaveFocus: any;
+  title: string;
+};
 function PanelChoose() {
   const dispatch = useDispatch();
   const dispatchPaneChooseChangePanelFieldByIndex = (data: PanelChooseType) => {
@@ -20,18 +27,26 @@ function PanelChoose() {
   const dispatchPanelChooseAddNew = () => {
     dispatch({ type: PANELCHOOSE_ADD_NEW });
   };
+  const dispatchStationInfoSubstationAngleSet = (angle: number) => {
+    dispatch({ type: STATIONINFO_SUBSTATION_ANGLE_SET, payload: angle });
+  };
 
   const state = useSelector((state: StoreState) => state);
   const panelChoose = state.panelChoose;
   const currentPannel = panelChoose.panelList[panelChoose.currentPanelIndex];
+  const stationInfoData = state.stationInfo.data;
+  const stationInfoDataAngle =
+    stationInfoData.listOfPanelList[stationInfoData.substationIndex].angle;
 
   const [isCanUpdatePanel, setIsCanUpdatePanel] = useState<boolean>(true);
-  //   const [locCurrentPanel, setLocCurrentPanel] = useState<PanelChooseType>({
-  //     color: currentPannel.color,
-  //     wattage: 0,
-  //     efficiencyPercents: 0,
-  //     temperatureCoefPower: 0,
-  //   });
+  const [inputError, setInputError] = useState<any>({
+    angle: null,
+    wattage: null,
+    efficiencyPercents: null,
+    temperatureCoefPower: null,
+  });
+
+  const [angle, setAngle] = useState<number>(0);
   const [wattage, setWattage] = useState<number>(0);
   const [efficiencyPercents, setEfficiencyPercents] = useState<number>(0);
   const [temperatureCoefPower, setTemperatureCoefPower] = useState<number>(0);
@@ -41,22 +56,63 @@ function PanelChoose() {
   };
 
   const onLeaveFocus = () => {
-    if (isCanUpdatePanel)
+    if (isCanUpdatePanel) {
       dispatchPaneChooseChangePanelFieldByIndex({
         color: currentPannel.color,
         wattage: wattage,
         efficiencyPercents: efficiencyPercents,
         temperatureCoefPower: temperatureCoefPower,
       });
+
+      dispatchStationInfoSubstationAngleSet(angle);
+    }
   };
 
+  const setErrorMessage = (
+    keyName: string,
+    max: number,
+    min: number,
+    inputValue: number,
+    targetValue: any
+  ) => {
+    setInputError((value: any) => {
+      const result = value;
+      if (!(inputValue <= max && inputValue >= min)) {
+        result[keyName] = `Enter a angle between ${min} and ${max}`;
+      } else if (targetValue === "") {
+        result[keyName] = `Field is empty`;
+      } else {
+        result[keyName] = null;
+      }
+
+      return result;
+    });
+  };
+
+  const onChangeAngle = (e: any) => {
+    setAngle(() => {
+      const valFromInput = Number.parseInt(e.target.value);
+      const max = 90;
+      const min = 0;
+      setIsCanUpdatePanel(
+        valFromInput <= max && valFromInput >= min && e.target.value !== ""
+      );
+
+      setErrorMessage("angle", max, min, valFromInput, e.target.value);
+
+      return e.target.value;
+    });
+  };
   const onChangeWattage = (e: any) => {
     setWattage(() => {
       const valFromInput = Number.parseInt(e.target.value);
-
+      const max = 1000;
+      const min = 0;
       setIsCanUpdatePanel(
-        valFromInput <= 2000 && valFromInput > 0 && e.target.value !== ""
+        valFromInput <= max && valFromInput >= min && e.target.value !== ""
       );
+
+      setErrorMessage("wattage", max, min, valFromInput, e.target.value);
 
       return e.target.value;
     });
@@ -64,9 +120,18 @@ function PanelChoose() {
   const onChangeEfficiencyPercents = (e: any) => {
     setEfficiencyPercents(() => {
       const valFromInput = Number.parseFloat(e.target.value);
+      const max = 100;
+      const min = 0;
 
       setIsCanUpdatePanel(
-        valFromInput <= 100 && valFromInput > 0 && e.target.value !== ""
+        valFromInput <= max && valFromInput >= min && e.target.value !== ""
+      );
+      setErrorMessage(
+        "efficiencyPercents",
+        max,
+        min,
+        valFromInput,
+        e.target.value
       );
 
       return e.target.value;
@@ -75,9 +140,18 @@ function PanelChoose() {
   const onChangeTemperatureCoefPower = (e: any) => {
     setTemperatureCoefPower(() => {
       const valFromInput = Number.parseFloat(e.target.value);
-
+      const max = 100;
+      const min = 0;
       setIsCanUpdatePanel(
-        valFromInput <= 100 && valFromInput > 0 && e.target.value !== ""
+        valFromInput <= max && valFromInput >= min && e.target.value !== ""
+      );
+
+      setErrorMessage(
+        "temperatureCoefPower",
+        max,
+        min,
+        valFromInput,
+        e.target.value
       );
 
       return e.target.value;
@@ -86,15 +160,29 @@ function PanelChoose() {
 
   // set initial value from current panel
   useEffect(() => {
+    setAngle(stationInfoDataAngle);
     setWattage(currentPannel.wattage);
     setEfficiencyPercents(currentPannel.efficiencyPercents);
     setTemperatureCoefPower(currentPannel.temperatureCoefPower);
-  }, [currentPannel]);
+  }, [currentPannel, stationInfoDataAngle]);
+
+  const InputError = ({ errorMessage }: { errorMessage: string }) => {
+    return (
+      <>
+        {errorMessage !== null ? (
+          <div className="InputErrorSection">{errorMessage}</div>
+        ) : null}
+      </>
+    );
+  };
 
   return (
     <div className="PanelChooseSection">
       <div className="PanelChooseSection_PanelList">
-        <div onClick={dispatchPanelChooseAddNew} className="PanelChooseSection_PanelList_El PanelChooseSection_PanelList_Add">
+        <div
+          onClick={dispatchPanelChooseAddNew}
+          className="PanelChooseSection_PanelList_El PanelChooseSection_PanelList_Add"
+        >
           +
         </div>
 
@@ -120,6 +208,26 @@ function PanelChoose() {
 
       <div className="PanelChooseSection_Configuration">
         <div className="PanelChooseSection_Configuration_Main">
+          <div className="PanelChooseSection_Configuration_Main_InputWrap">
+            <div className="PanelChooseSection_Configuration_Main_InputWrap_Text">
+              <div className="PanelChooseSection_Configuration_Main_InputWrap_Text_Big">
+                Angle
+              </div>
+            </div>
+            <div className="PanelChooseSection_Configuration_Main_InputWrap_Wrap">
+              <input
+                className="PanelChooseSection_Configuration_Main_InputWrap_Wrap_Input"
+                value={angle}
+                type="number"
+                onChange={onChangeAngle}
+                onBlur={onLeaveFocus}
+              />
+              <InputError errorMessage={inputError.angle} />
+            </div>
+          </div>
+
+          <div className="PanelChooseSection_Configuration_Main_Separator"></div>
+
           <div className="PanelChooseSection_Configuration_Main_InputWrap">
             <div className="PanelChooseSection_Configuration_Main_InputWrap_Text">
               <div className="PanelChooseSection_Configuration_Main_InputWrap_Text_Big">
@@ -168,6 +276,7 @@ function PanelChoose() {
                 onChange={onChangeTemperatureCoefPower}
                 onBlur={onLeaveFocus}
               />
+              <InputError errorMessage={inputError.temperatureCoefPower} />
             </div>
           </div>
         </div>
