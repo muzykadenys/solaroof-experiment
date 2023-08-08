@@ -1,4 +1,4 @@
-$header_header: 50px;
+$header_header: 40px;
 
 $leftProggress_width: 40px;
 $leftProggresChildren_width: calc($leftProggress_width - 10px);
@@ -42,6 +42,26 @@ $panelChooseDotWidth: 15px;
   }
 }
 
+@mixin custom_button_white {
+  cursor: pointer;
+
+  background-color: white;
+  border: 3px solid black;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+
+  padding: 5px;
+  border-radius: 3px;
+
+  transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
 @mixin smallButtons {
   display: flex;
   gap: $smallButtonPadding;
@@ -49,7 +69,7 @@ $panelChooseDotWidth: 15px;
 
   min-width: $leftProggress_width;
   min-height: $leftProggress_width;
-  // height: fit-content;
+  height: fit-content;
   // width: fit-content;
 
   border-radius: $smallButton_round;
@@ -65,6 +85,10 @@ $panelChooseDotWidth: 15px;
     height: $leftProggresChildren_width;
 
     border-radius: $smallButton_round;
+    // background-color: rgb(235, 235, 235);
+  }
+
+  & > .active {
     background-color: rgb(235, 235, 235);
   }
 }

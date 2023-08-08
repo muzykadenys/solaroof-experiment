@@ -5,7 +5,10 @@ import "./substationChoose.scss";
 import {
   STATIONINFO_PANELLIST_ADD,
   STATIONINFO_SUBSTATIONINDEX_SET,
+  STATIONINFO_SUBSTATION_DELETE_BY_INDEX,
 } from "../../redux/redux_consts";
+import { closeOutline } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
 
 function SubstationChoose() {
   const dispatch = useDispatch();
@@ -14,6 +17,9 @@ function SubstationChoose() {
   };
   const dispatchStationInfoPanelListAdd = () => {
     dispatch({ type: STATIONINFO_PANELLIST_ADD });
+  };
+  const dispatchStationInfoSubstationDeleteByIndex = () => {
+    dispatch({ type: STATIONINFO_SUBSTATION_DELETE_BY_INDEX });
   };
 
   const state = useSelector((state: StoreState) => state);
@@ -47,7 +53,21 @@ function SubstationChoose() {
                 }`}
                 key={`SCS${index}`}
               >
-                {el.panelList.length === 0 ? 1 : el.panelList.length}
+                {stationInfoData.substationIndex === index &&
+                stationInfoData.listOfPanelList.length > 1 ? (
+                  <div
+                    onClick={() => {
+                      dispatchStationInfoSubstationDeleteByIndex();
+                    }}
+                    className="SubstationChooseSection_Main_El_Close"
+                  >
+                    <IonIcon icon={closeOutline} />
+                  </div>
+                ) : null}
+
+                <div className="SubstationChooseSection_Main_El_Main">
+                  {el.panelList.length === 0 ? 1 : el.panelList.length}
+                </div>
               </div>
             );
           }

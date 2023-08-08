@@ -8,6 +8,7 @@ import {
   PANELCHOOSE_CHANGE_PANEL_FIELD_BY_INDEX,
   PANELCHOOSE_CURRENT_SET,
   STATIONINFO_SUBSTATION_ANGLE_SET,
+  STATIONINFO_SUBSTATION_ORIENTATIONANGLE_SET,
 } from "../../redux/redux_consts";
 
 type inputBlock = {
@@ -30,23 +31,31 @@ function PanelChoose() {
   const dispatchStationInfoSubstationAngleSet = (angle: number) => {
     dispatch({ type: STATIONINFO_SUBSTATION_ANGLE_SET, payload: angle });
   };
+  const dispatchStationInfoSubstationOrientationAngle = (angle: number) => {
+    dispatch({ type: STATIONINFO_SUBSTATION_ORIENTATIONANGLE_SET, payload: angle });
+  };
 
   const state = useSelector((state: StoreState) => state);
   const panelChoose = state.panelChoose;
   const currentPannel = panelChoose.panelList[panelChoose.currentPanelIndex];
   const stationInfoData = state.stationInfo.data;
+
   const stationInfoDataAngle =
     stationInfoData.listOfPanelList[stationInfoData.substationIndex].angle;
+  const stationInfoDataOrientationAngle =
+    stationInfoData.listOfPanelList[stationInfoData.substationIndex].orientationAngle;
 
   const [isCanUpdatePanel, setIsCanUpdatePanel] = useState<boolean>(true);
   const [inputError, setInputError] = useState<any>({
     angle: null,
+    orientationAngle: null,
     wattage: null,
     efficiencyPercents: null,
     temperatureCoefPower: null,
   });
 
   const [angle, setAngle] = useState<number>(0);
+  const [orientationAngle, setOrientationAngle] = useState<number>(180);
   const [wattage, setWattage] = useState<number>(0);
   const [efficiencyPercents, setEfficiencyPercents] = useState<number>(0);
   const [temperatureCoefPower, setTemperatureCoefPower] = useState<number>(0);
@@ -65,6 +74,7 @@ function PanelChoose() {
       });
 
       dispatchStationInfoSubstationAngleSet(angle);
+      dispatchStationInfoSubstationOrientationAngle(orientationAngle);
     }
   };
 
@@ -99,6 +109,20 @@ function PanelChoose() {
       );
 
       setErrorMessage("angle", max, min, valFromInput, e.target.value);
+
+      return e.target.value;
+    });
+  };
+  const onChangeOrientationAngle = (e: any) => {
+    setOrientationAngle(() => {
+      const valFromInput = Number.parseInt(e.target.value);
+      const max = 360;
+      const min = 0;
+      setIsCanUpdatePanel(
+        valFromInput <= max && valFromInput >= min && e.target.value !== ""
+      );
+
+      setErrorMessage("orientationAngle", max, min, valFromInput, e.target.value);
 
       return e.target.value;
     });
@@ -161,10 +185,11 @@ function PanelChoose() {
   // set initial value from current panel
   useEffect(() => {
     setAngle(stationInfoDataAngle);
+    setOrientationAngle(stationInfoDataOrientationAngle)
     setWattage(currentPannel.wattage);
     setEfficiencyPercents(currentPannel.efficiencyPercents);
     setTemperatureCoefPower(currentPannel.temperatureCoefPower);
-  }, [currentPannel, stationInfoDataAngle]);
+  }, [currentPannel, stationInfoDataAngle, stationInfoDataOrientationAngle]);
 
   const InputError = ({ errorMessage }: { errorMessage: string }) => {
     return (
@@ -211,7 +236,7 @@ function PanelChoose() {
           <div className="PanelChooseSection_Configuration_Main_InputWrap">
             <div className="PanelChooseSection_Configuration_Main_InputWrap_Text">
               <div className="PanelChooseSection_Configuration_Main_InputWrap_Text_Big">
-                Angle
+                Tilt angle
               </div>
             </div>
             <div className="PanelChooseSection_Configuration_Main_InputWrap_Wrap">
@@ -223,6 +248,23 @@ function PanelChoose() {
                 onBlur={onLeaveFocus}
               />
               <InputError errorMessage={inputError.angle} />
+            </div>
+          </div>
+          <div className="PanelChooseSection_Configuration_Main_InputWrap">
+            <div className="PanelChooseSection_Configuration_Main_InputWrap_Text">
+              <div className="PanelChooseSection_Configuration_Main_InputWrap_Text_Big">
+                Orientation Angle
+              </div>
+            </div>
+            <div className="PanelChooseSection_Configuration_Main_InputWrap_Wrap">
+              <input
+                className="PanelChooseSection_Configuration_Main_InputWrap_Wrap_Input"
+                value={orientationAngle}
+                type="number"
+                onChange={onChangeOrientationAngle}
+                onBlur={onLeaveFocus}
+              />
+              <InputError errorMessage={inputError.orientationAngle} />
             </div>
           </div>
 

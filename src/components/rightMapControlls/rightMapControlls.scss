@@ -1,0 +1,9 @@
+@import "../../settings/settings.scss";
+
+.RightMapControllsSection {
+//   pointer-events: all;
+  display: flex;
+  justify-content: center;
+
+  width: $leftProggress_width;
+}

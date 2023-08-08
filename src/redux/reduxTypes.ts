@@ -41,7 +41,8 @@ export type PanelType = {
 };
 export type SubstationType = {
   panelList: PanelType[],
-  angle: number
+  angle: number,
+  orientationAngle?: number
 }
 export type StationInfoType = {
   isHaveStation: boolean;
@@ -78,3 +79,11 @@ export type StatePanelChooseType = {
   panelList: PanelChooseType[];
   currentPanelIndex: number;
 };
+
+
+// show windows
+export type ShowWindows = {
+  profile: boolean
+  statistic: boolean
+  login: boolean
+}

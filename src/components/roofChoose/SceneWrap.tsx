@@ -36,7 +36,7 @@ function SceneWrap({
   /// =====================================================================
 
   const { camera } = useThree();
-  const gltf = useLoader(GLTFLoader, "./models/solar_panel.glb");
+  const gltf = useLoader(GLTFLoader, "../models/solar_panel.glb");
   const [panelList, setPanelList] = useState<PanelType[]>([]);
   const [panelsAmount, setPanelsAmount] = useState<any>([0, 0, 0]);
   const [cameraPos, setCameraPos] = useState<number[]>([0, 0, 3]);
