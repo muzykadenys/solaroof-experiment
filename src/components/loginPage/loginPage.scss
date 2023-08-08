@@ -1,0 +1,64 @@
+@import "../../settings/settings.scss";
+
+.LoginPageSection {
+  cursor: pointer;
+  position: absolute;
+  z-index: 12;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(177, 177, 177, 0.419);
+
+  .LoginPageSection_Main {
+    cursor: default;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 400px;
+    height: fit-content;
+
+    padding: 30px;
+
+    background-color: white;
+    border-radius: $modal_round;
+
+    .LoginPageSection_Main_FormName{
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .LoginPageSection_Main_InputWrap{
+        width: 100%;
+
+        .LoginPageSection_Main_InputWrap_Input{
+            @include custom-input;
+            width: 100%;
+        }
+
+        .LoginPageSection_Main_InputWrap_PassWrap{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+
+            .LoginPageSection_Main_InputWrap_Icon{
+                cursor: pointer;
+                position: absolute;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .LoginPageSection_Main_Submit{
+       @include custom_button_white;
+       width: 100%;
+       
+    }
+  }
+}

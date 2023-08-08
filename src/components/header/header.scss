@@ -3,15 +3,21 @@
 .HeaderSection {
   // background-color: pink;
 
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
 
   height: $header_header;
   width: 100%;
 
+  padding: 0px 10px;
+
   .HeaderSection_InputWrap {
-    width: 30%;
+    // width: 30%;
     position: relative;
 
     .HeaderSection_InputWrap_Wrap {
@@ -50,10 +56,26 @@
         font-weight: 700;
         background-color: white;
 
-        &:hover{
-            background-color:  rgb(223, 223, 223);
+        &:hover {
+          background-color: rgb(223, 223, 223);
         }
       }
+    }
+  }
+
+  .HeaderSection_Right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    .HeaderSection_Right_Profile{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .HeaderSection_Right_SignUp{
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 }

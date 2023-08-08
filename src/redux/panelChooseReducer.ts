@@ -18,6 +18,7 @@ const initialState = {
   panelList: [
     {
       color: "pink",
+      
       wattage: 660,
       efficiencyPercents: 21.2,
       temperatureCoefPower: 0.34,

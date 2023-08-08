@@ -5,17 +5,37 @@ import { useEffect, useRef, useState } from "react";
 import SceneWrap from "./SceneWrap";
 import PanelChoose from "../panelChoose/PanelChoose";
 import { IonIcon } from "@ionic/react";
-import { gridOutline, grid, duplicateOutline, duplicate } from "ionicons/icons";
+import {
+  gridOutline,
+  grid,
+  duplicateOutline,
+  duplicate,
+  caretUpOutline,
+} from "ionicons/icons";
 import SubstationChoose from "../substationChoose/SubstationChoose";
 import { StoreState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { PanelType, SubstationType } from "../../redux/reduxTypes";
+import { gsap } from "gsap";
 
 function RoofChoose() {
   const state = useSelector((state: StoreState) => state);
   const stationInfoData = state.stationInfo.data;
   const proggress = state.proggress.data;
   const [switchMode, setSwitchMode] = useState<boolean>(true);
+  const arrowRef = useRef<any>(null);
+
+  const stationInfoDataOrientationAngle =
+    stationInfoData.listOfPanelList[stationInfoData.substationIndex]
+      .orientationAngle;
+
+
+  useEffect(() => {
+    if(!arrowRef.current)return
+
+    gsap.to(arrowRef.current, {duration: 0.5, rotate: `${stationInfoDataOrientationAngle}deg`})
+
+  }, [stationInfoDataOrientationAngle]);
 
   return (
     <div className="RoofChooseSection">
@@ -41,6 +61,23 @@ function RoofChoose() {
           >
             <IonIcon icon={switchMode ? duplicateOutline : duplicate} />
           </div>
+        </div>
+
+        <div className="RoofChooseSection_Right_Compass">
+          <div className="RoofChooseSection_Right_Compass_Arrow">
+            <IonIcon
+              ref={arrowRef}
+              className="RoofChooseSection_Right_Compass_Arrow_Icon"
+              icon={caretUpOutline}
+            />
+          </div>
+
+          <div className="RoofChooseSection_Right_Compass_North ">N</div>
+          <div className="RoofChooseSection_Right_Compass_Side">
+            <div className="RoofChooseSection_Right_Compass_West">W</div>
+            <div className="RoofChooseSection_Right_Compass_East">E</div>
+          </div>
+          <div className="RoofChooseSection_Right_Compass_South ">S</div>
         </div>
 
         <Canvas

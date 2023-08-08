@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   LOCATIONINFO_LATLON_SET,
   MESSAGEHANDLER_ADD,
+  SHOWWINDOWS_LOGIN_SET,
+  SHOWWINDOWS_PROFILE_SET,
 } from "../../redux/redux_consts";
 import { searchOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
@@ -15,8 +17,15 @@ function Header() {
   const dispatchLocationInfoLatLonSet = (lat: Number, lon: number) => {
     dispatch({ type: LOCATIONINFO_LATLON_SET, payload: { lat, lon } });
   };
+  const dispatchShowWindowsProfileSet = (value: boolean) => {
+    dispatch({ type: SHOWWINDOWS_PROFILE_SET, payload: value });
+  };
+  const dispatchShowWindowsLoginSet = (value: boolean) => {
+    dispatch({ type: SHOWWINDOWS_LOGIN_SET, payload: value });
+  };
   const state = useSelector((state: StoreState) => state);
   const proggress = state.proggress.data;
+  const showWindowsProfile = state.showWindows.profile;
 
   const [locInput, setLocInput] = useState("");
   const [searchVariants, setSearchVariants] = useState<any>([]);
@@ -28,6 +37,13 @@ function Header() {
   const onClickCooseVariant = (choose: any) => {
     dispatchLocationInfoLatLonSet(choose.lat, choose.lon);
     setLocInput("");
+  };
+
+  const onOpenLoginPage = () => {
+    dispatchShowWindowsLoginSet(true);
+  };
+  const onOpenProfilePage = () => {
+    dispatchShowWindowsProfileSet(true);
   };
 
   useEffect(() => {
@@ -53,6 +69,8 @@ function Header() {
 
   return (
     <div className="HeaderSection">
+      <div className="HeaderSection_Left"></div>
+
       <div className="HeaderSection_InputWrap">
         <div className="HeaderSection_InputWrap_Wrap">
           <IonIcon
@@ -84,6 +102,18 @@ function Header() {
             })}
           </div>
         ) : null}
+      </div>
+
+      <div className="HeaderSection_Right">
+        <div
+          className="HeaderSection_Right_Profile"
+          onClick={onOpenProfilePage}
+        >
+          profile
+        </div>
+        <div className="HeaderSection_Right_SignUp" onClick={onOpenLoginPage}>
+          login
+        </div>
       </div>
     </div>
   );

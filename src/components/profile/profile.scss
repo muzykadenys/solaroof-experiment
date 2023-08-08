@@ -1,0 +1,24 @@
+@import "../../settings/settings.scss";
+
+.ProfileSection {
+  cursor: pointer;
+  position: absolute;
+  z-index: 11;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(177, 177, 177, 0.419);
+
+  .ProfileSection_Main {
+    cursor: default;
+    width: 65%;
+    height: 80%;
+
+    background-color: white;
+    border-radius: $modal_round;
+  }
+}

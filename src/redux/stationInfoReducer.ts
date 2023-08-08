@@ -12,6 +12,7 @@ import {
   STATIONINFO_SUBSTATIONINDEX_SET,
   STATIONINFO_SUBSTATION_ANGLE_SET,
   STATIONINFO_SUBSTATION_DELETE_BY_INDEX,
+  STATIONINFO_SUBSTATION_ORIENTATIONANGLE_SET,
 } from "./redux_consts";
 
 const initialState = {
@@ -22,10 +23,10 @@ const initialState = {
   data: {
     isHaveStation: false,
     isRoof: false,
-    listOfPanelList: [{ panelList: [], angle: 0 }],
+    listOfPanelList: [{ panelList: [], angle: 0, orientationAngle: 180 }],
     substationIndex: 0,
   },
-};
+}
 
 const stationInfoReducer = (
   state: StateStationInfoType = initialState,
@@ -73,7 +74,8 @@ const stationInfoReducer = (
         data: {
           ...state.data,
           listOfPanelList: state.data.listOfPanelList.filter(
-            (el: SubstationType, index: number) => state.data.substationIndex !== index
+            (el: SubstationType, index: number) =>
+              state.data.substationIndex !== index
           ),
         },
       };
@@ -86,6 +88,21 @@ const stationInfoReducer = (
             (el: SubstationType, index: number) => {
               if (state.data.substationIndex === index) {
                 return { ...el, angle: action.payload };
+              }
+              return el;
+            }
+          ),
+        },
+      };
+    case STATIONINFO_SUBSTATION_ORIENTATIONANGLE_SET:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          listOfPanelList: state.data.listOfPanelList.map(
+            (el: SubstationType, index: number) => {
+              if (state.data.substationIndex === index) {
+                return { ...el, orientationAngle: action.payload };
               }
               return el;
             }
