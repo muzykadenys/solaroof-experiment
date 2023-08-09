@@ -9,7 +9,13 @@
     z-index: 1;
   }
 
-  .MapSection_MapContainer {
-    
+  .MapSection_MapContainer__active {
+    cursor: pointer;
+  }
+}
+
+.MapSection__active{
+  .leaflet-container {
+   cursor: pointer;
   }
 }
