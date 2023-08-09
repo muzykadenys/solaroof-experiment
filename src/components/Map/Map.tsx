@@ -7,7 +7,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./map.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../redux/store";
@@ -64,6 +64,7 @@ function Map() {
   const proggress = state.proggress.data;
 
   const [isDragable, setIsDragable] = useState(true);
+  const mapSectionRef = useRef<any>(null);
 
   // ================================================
   const customIcon = new Icon({
@@ -72,9 +73,23 @@ function Map() {
   });
 
   function LocationMarker() {
+    const mapCenter = useMap().getCenter();
+
+    if (
+      !isDragable &&
+      locationInfo.marker.lat === 0 &&
+      locationInfo.marker.lon === 0
+    ) {
+      dispatchLocationInfoMarkerSet(mapCenter.lat, mapCenter.lng);
+    }
+
     useMapEvents({
       click(e) {
-        if (!isDragable) {
+        if (
+          !isDragable &&
+          locationInfo.marker.lat !== 0 &&
+          locationInfo.marker.lon !== 0
+        ) {
           const point = e.latlng;
 
           dispatchLocationInfoMarkerSet(point.lat, point.lng);
@@ -97,10 +112,14 @@ function Map() {
   }, [proggress.stage]);
 
   return (
-    <div className="MapSection">
+    <div
+      className={`MapSection ${
+        proggress.stage === 1 ? "MapSection__active" : ""
+      }`}
+    >
       <MapContainer
         zoomControl={false}
-        className="MapSection_MapContainer"
+        className={`MapSection_MapContainer`}
         center={[49.774579, 24.0447]}
         // center={[locationInfo.lat, locationInfo.lon]}
         zoom={20}
